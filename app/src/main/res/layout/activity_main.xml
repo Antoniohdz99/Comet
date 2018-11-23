@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 android:background="@mipmap/ic_launcher_background"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".inicio.MainActivity">
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="250dp"
@@ -26,6 +26,7 @@ android:background="@mipmap/ic_launcher_background"
 
         </LinearLayout>
         <Button
+            android:id="@+id/log"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -55,6 +56,7 @@ android:background="@mipmap/ic_launcher_background"
 
         </LinearLayout>
         <Button
+            android:id="@+id/reg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
