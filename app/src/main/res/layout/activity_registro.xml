@@ -7,19 +7,15 @@
     android:background="@mipmap/ic_launcher_background"
     tools:context=".inicio.Registro">
 
-    <ImageView
 
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@drawable/ic_comet_white"
-        android:layout_alignParentTop="true"/>
     <LinearLayout
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
+
         android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,8 +25,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:src="@drawable/ic_comet_white"
+                    android:layout_alignParentTop="true"/>
 
                <LinearLayout
+                   android:layout_marginTop="-50dp"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:orientation="vertical">
