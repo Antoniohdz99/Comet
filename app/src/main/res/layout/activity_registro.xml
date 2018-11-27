@@ -108,6 +108,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Foto"
+                        android:textSize="10pt"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Foto"
+                        android:id="@+id/ag_foto"
+                        android:textSize="7pt"
+                       android:backgroundTint="@color/Pistache"
+                        />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:src="@drawable/ic_perfil"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
