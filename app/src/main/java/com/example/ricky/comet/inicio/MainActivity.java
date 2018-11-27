@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.ricky.comet.R;
+import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,7 +30,6 @@ Button
 
         btn_iniciar_S.setOnClickListener(Click_iniciar_s);
         btn_registrar.setOnClickListener(Click_Registrar);
-
     }
 
 
@@ -51,7 +51,7 @@ Button
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().signOut();
+        /*FirebaseAuth.getInstance().signOut();*/
         usuario=myauth.getInstance().getCurrentUser();
 
         //SI EL USUARIO ESTÁ LOGEADO, LO REDIRIJIMOS
@@ -59,6 +59,7 @@ Button
             Intent ir = new Intent(MainActivity.this,Principal.class);
             startActivity(ir);
         }
+
     }
 
 }
