@@ -45,7 +45,7 @@
                    <EditText
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Ingese su nombre completo"/>
+                       android:hint="Ingrese su nombre completo"/>
                </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"
@@ -61,7 +61,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Ingese su correo"/>
+                        android:hint="Ingrese su correo"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"
@@ -76,7 +76,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Ingese su  contraseña"
+                        android:hint="Ingrese su  contraseña"
                         android:inputType="textPassword"/>
                     <EditText
                         android:layout_marginTop="5dp"
@@ -101,6 +101,19 @@
                         android:layout_height="50dp"
                         android:hint="Fecha de nasimiento"
                         android:inputType="date"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Registrar"
+                        android:backgroundTint="@color/verde"
+                        android:id="@+id/registrar"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
