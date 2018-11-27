@@ -16,7 +16,7 @@ Button
     btn_iniciar_S,
     btn_registrar;
     FirebaseUser usuario;
-    FirebaseAuth myauth;
+    FirebaseAuth myauth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
