@@ -59,7 +59,7 @@ public class Registro extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (contra == re_contra) {
+                if (contra.getText().toString() == re_contra.getText().toString()) {
                     mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contra.getText().toString())
                             .addOnCompleteListener(Registro.this, new OnCompleteListener<AuthResult>() {
                                 @Override
