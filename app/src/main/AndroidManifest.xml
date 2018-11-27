@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ricky.comet">
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
@@ -18,10 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".inicio.Registro">
-
-        </activity>
-        <activity android:name=".inicio.Inicio_sesion"></activity>
+        <activity android:name=".inicio.Registro"></activity>
+        <activity android:name=".inicio.Inicio_sesion" />
+        <activity android:name=".inicio.Principal"></activity>
     </application>
 
 </manifest>
