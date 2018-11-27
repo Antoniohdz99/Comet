@@ -5,7 +5,10 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -201,7 +204,7 @@ public class Registro extends AppCompatActivity {
                 switch (Opciones[i].toString())
                 {
                     case "Tomar Foto":{
-                        Toast.makeText(getApplicationContext(),"Funciona",Toast.LENGTH_LONG).show();
+                       AbrirCamara();
                     }break;
                     case "Elegir de la galeria":{
                         Intent  Imagen = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -220,6 +223,29 @@ public class Registro extends AppCompatActivity {
 
     }
 
+    private void AbrirCamara() {
+         File MyFile  = new File(Environment.getExternalStorageDirectory(),Directorio_imagen);
+         boolean isCreada=MyFile.exists();
+         if (!isCreada)
+         {
+             isCreada=MyFile.mkdirs();
+         }
+        if (isCreada)
+        {
+            Long Consecutivo =System.currentTimeMillis()/1000;
+            String nombre = Consecutivo.toString()+".jpg";
+            //Seindica la ruta de alamacenamiento
+            Path = Environment.getExternalStorageDirectory()+File.separator+Directorio_imagen+File.separator+nombre;
+            FileImage = new File(Path);
+            Intent  Imagen = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Imagen.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(FileImage));
+
+            startActivityForResult(Imagen,20);
+
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -233,7 +259,23 @@ public class Registro extends AppCompatActivity {
                 }catch (Exception e){}
 
             }break;
-            case 20:{}break;
+            case 20: {
+
+                    MediaScannerConnection.scanFile(Registro.this,new String[]{Path},null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                        @Override
+                        public void onScanCompleted(String s, Uri uri) {
+                            Log.d("Phat",""+Path);
+
+                        }
+                    }
+                    );
+                    bitmap= BitmapFactory.decodeFile(Path);
+                    Foto_ag.setImageBitmap(bitmap);
+
+
+            }break;
+
 
         }
     }
