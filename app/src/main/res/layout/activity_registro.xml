@@ -82,13 +82,7 @@
                         android:id="@+id/ag_contra"
                         android:hint="Ingrese su  contraseña"
                         android:inputType="textPassword"/>
-                    <EditText
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Confirmar"
-                        android:id="@+id/ag_re_contra"
-                        android:inputType="textPassword"/>
+
 
                 </LinearLayout>
                 <LinearLayout

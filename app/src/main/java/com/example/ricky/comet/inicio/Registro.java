@@ -45,7 +45,7 @@ public class Registro extends AppCompatActivity {
         nombre = findViewById(R.id.ag_name);
         correo =findViewById(R.id.ag_correo);
         contra = findViewById(R.id.ag_contra);
-        re_contra = findViewById(R.id.ag_re_contra);
+
         edad = findViewById(R.id.ag_edad);
 
         //Boton de registro
@@ -59,7 +59,8 @@ public class Registro extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (contra.getText().toString() == re_contra.getText().toString()) {
+
+
                     mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contra.getText().toString())
                             .addOnCompleteListener(Registro.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -90,11 +91,7 @@ public class Registro extends AppCompatActivity {
                                     // ...
                                 }
                             });
-                }
-                else
-                    {
-                        Toast.makeText(getApplicationContext(),"Las contraseñas son distintas",Toast.LENGTH_LONG).show();
-                    }
+
             }
         });
     }
