@@ -4,4 +4,7 @@
 
     <string name="formato_fecha">dd/mm/yyyy</string>
     <string name="formato_hora">hh:mm</string>
+    <string name="Pedidos">Pedidos</string>
+    <string name="Noticias">Noticias</string>
+    <string name="Perfil">Perfil</string>
 </resources>
