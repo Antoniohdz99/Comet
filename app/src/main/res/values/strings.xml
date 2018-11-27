@@ -7,4 +7,7 @@
     <string name="Pedidos">Pedidos</string>
     <string name="Noticias">Noticias</string>
     <string name="Perfil">Perfil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
