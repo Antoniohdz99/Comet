@@ -29,7 +29,7 @@ public class Inicio_sesion extends AppCompatActivity {
         usuario=myauth.getCurrentUser();
 
         if(usuario==null){
-
+/**/
         }
 
 
