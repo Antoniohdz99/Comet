@@ -29,18 +29,20 @@
                 android:id="@+id/txtmail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Ingrese su correo/telefono"
+                    android:hint="Ingresa Email o Teléfono"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginRight="10dp"
+                android:fontFamily="@font/roboto_thin"/>
             <EditText
                 android:id="@+id/txtpass"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Ingrese su contraseña"
+                android:hint="Ingresa contraseña"
                 android:layout_marginTop="10dp"
                 android:inputType="textPassword"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/roboto_thin"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
