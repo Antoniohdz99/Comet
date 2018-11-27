@@ -11,5 +11,6 @@ public class Inicio_sesion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
+        //Aqui hay un comentario
     }
 }
