@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "764508225650",
+    "firebase_url": "https://comet-90cf8.firebaseio.com",
+    "project_id": "comet-90cf8",
+    "storage_bucket": "comet-90cf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764508225650:android:92f3c5cb9eeab3ae",
+        "android_client_info": {
+          "package_name": "com.example.ricky.comet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764508225650-v9d74311lkiijsnhielfqdpnlca8s9kc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ricky.comet",
+            "certificate_hash": "d03cbfeeeb428e96dbf64eee38028bfb66b7ed90"
+          }
+        },
+        {
+          "client_id": "764508225650-molg6fddpke06juar2ks0j7hvjpqbmhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvPAc9uGDdHjEkXSRpT5uNEKmO4NbQDqM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764508225650-molg6fddpke06juar2ks0j7hvjpqbmhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
