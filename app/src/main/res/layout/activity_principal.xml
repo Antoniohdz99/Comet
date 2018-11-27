@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".inicio.Principal"
-    android:id="@+id/contenedor">
+    android:id="@+id/contenedor"
+    xmlns:desing="http://schemas.android.com/apk/res-auto"
+    >
 
     <TextView
         android:layout_marginTop="20dp"
@@ -22,13 +24,36 @@
         android:id="@+id/btncierra"
         android:text="Cerrar Sesión"
         android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
+
         android:background="@color/verde"
         android:fontFamily="@font/roboto_thin"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:textSize="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_above="@+id/menu"
         />
+    <FrameLayout
+        android:id="@+id/Fragmento"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/menu"
+
+        ></FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        desing:menu="@menu/menu_inferior"
+        android:background="@color/Negro_pastel"
+        >
+
+    </android.support.design.widget.BottomNavigationView>
+
 
 </RelativeLayout>
