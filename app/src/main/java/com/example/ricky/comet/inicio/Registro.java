@@ -49,7 +49,7 @@ public class Registro extends AppCompatActivity {
         edad = findViewById(R.id.ag_edad);
 
         //Boton de registro
-        reg = findViewById(R.id.reg);
+        reg = findViewById(R.id.registrar);
 
         //Agregar instacia a la base de datos
         mAuth = FirebaseAuth.getInstance();
