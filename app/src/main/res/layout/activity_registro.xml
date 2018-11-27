@@ -100,7 +100,8 @@
                         android:layout_height="50dp"
                         android:hint="edad"
                         android:id="@+id/ag_edad"
-                        android:inputType="none"/>
+                        android:focusable="false"
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"
