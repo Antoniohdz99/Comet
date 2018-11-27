@@ -38,7 +38,7 @@ public class Registro extends AppCompatActivity {
     nombre,
     correo,
     contra,
-    re_contra,
+
     edad;
 //Botton del reguistro
     Button reg;
@@ -126,7 +126,9 @@ public class Registro extends AppCompatActivity {
                                     FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("nombre").setValue(nombre.getText().toString());
                                     FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("correo").setValue(correo.getText().toString());
                                     FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("edad").setValue(edad.getText().toString());
-
+                                    Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                    Intent ir = new Intent(getApplicationContext(),MainActivity.class);
+                                    startActivity(ir);
 
                                 } else {
                                     // If sign in fails, display a message to the user.
