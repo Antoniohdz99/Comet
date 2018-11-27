@@ -124,8 +124,8 @@
                     <ImageView
                         android:id="@+id/Foto_ag"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        android:src="@drawable/ic_perfil"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_person_100"
                         />
                 </LinearLayout>
                 <LinearLayout
