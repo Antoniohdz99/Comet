@@ -25,6 +25,7 @@ public class Principal extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(Principal.this,"¡Cerrando Sesión!",Toast.LENGTH_SHORT).show();
                 Intent ir = new Intent(Principal.this,MainActivity.class);
+                startActivity(ir);
             }
         });
     }
