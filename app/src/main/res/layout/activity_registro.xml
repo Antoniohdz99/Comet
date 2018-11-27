@@ -100,7 +100,7 @@
                         android:layout_height="50dp"
                         android:hint="edad"
                         android:id="@+id/ag_edad"
-                        android:inputType="date"/>
+                        android:inputType="none"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"

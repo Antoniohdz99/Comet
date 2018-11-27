@@ -1,11 +1,13 @@
 package com.example.ricky.comet.inicio;
 
+import android.app.DatePickerDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,21 +20,37 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Registro extends AppCompatActivity {
 
+    //Datos del reguistro
     EditText
     nombre,
     correo,
     contra,
     re_contra,
     edad;
-
+//Botton del reguistro
     Button reg;
-
+//Conesión con la base
     private FirebaseAuth mAuth;
-// ...
+    private static final String CERO = "0";
+    private static final String BARRA = "-";
+
+    //Calendario para obtener fecha & hora
+    public final Calendar c = Calendar.getInstance();
+
+    //Variables para obtener la fecha
+    final int mes = c.get(Calendar.MONTH);
+    final int dia = c.get(Calendar.DAY_OF_MONTH);
+    final int anio = c.get(Calendar.YEAR);
+
+
 
 
     @Override
@@ -47,6 +65,33 @@ public class Registro extends AppCompatActivity {
         contra = findViewById(R.id.ag_contra);
 
         edad = findViewById(R.id.ag_edad);
+
+        edad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog recogerFecha = new DatePickerDialog(Registro.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
+                        final int mesActual = month + 1;
+                        //Formateo el día obtenido: antepone el 0 si son menores de 10
+                        String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                        //Formateo el mes obtenido: antepone el 0 si son menores de 10
+                        String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                        //Muestro la fecha con el formato deseado
+                        edad.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
+
+
+                    }
+                    //Estos valores deben ir en ese orden, de lo contrario no mostrara la fecha actual
+                    /**
+                     *También puede cargar los valores
+                     */
+                },anio, mes, dia);
+                //Muestro el widget
+                recogerFecha.show();
+            }
+        });
 
         //Boton de registro
         reg = findViewById(R.id.registrar);
@@ -70,14 +115,10 @@ public class Registro extends AppCompatActivity {
                                         Log.d("ingresado", "createUserWithEmail:success");
                                         //Tomando el uid del usuario resien reguistrado
                                         String User_id = mAuth.getCurrentUser().getUid();
-                                        //objeto con la lista de datos del usuario
-                                        HashMap<String, Object> result = new HashMap<>();
-                                        //lista de datos del usuario
-                                            result.put("nombre",nombre.getText());
-                                            result.put("correo",correo.getText());
-                                            result.put("edad",edad.getText());
-                                            //ingresando los datos del usuario
-                                        FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).setValue(result);
+                                        //ingresando los datos del usuario
+                                        FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("nombre").setValue(nombre.getText().toString());
+                                        FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("correo").setValue(correo.getText().toString());
+                                        FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("edad").setValue(edad.getText().toString());
 
 
                                     } else {

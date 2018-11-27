@@ -18,6 +18,7 @@ Button
     FirebaseUser usuario;
     FirebaseAuth myauth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,8 @@ Button
     @Override
     protected void onStart() {
         super.onStart();
-        usuario=myauth.getCurrentUser();
+        FirebaseAuth.getInstance().signOut();
+        usuario=myauth.getInstance().getCurrentUser();
 
         //SI EL USUARIO ESTÁ LOGEADO, LO REDIRIJIMOS
         if(usuario!=null){
