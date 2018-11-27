@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.ricky.comet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -161,14 +162,8 @@ public class Registro extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("ingresado", "createUserWithEmail:success");
                                     //Tomando el uid del usuario resien reguistrado
-                                    String User_id = mAuth.getCurrentUser().getUid();
-                                    //ingresando los datos del usuario
-                                    FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("nombre").setValue(nombre.getText().toString());
-                                    FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("correo").setValue(correo.getText().toString());
-                                    FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("edad").setValue(edad.getText().toString());
-                                    Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                    Intent ir = new Intent(getApplicationContext(),MainActivity.class);
-                                    startActivity(ir);
+
+
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -180,7 +175,26 @@ public class Registro extends AppCompatActivity {
 
                                 // ...
                             }
-                        });
+                        }).addOnSuccessListener(Registro.this, new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        usuario=myauth.getInstance().getCurrentUser();
+
+                        //SI EL USUARIO ESTÁ LOGEADO, LO REDIRIJIMOS
+                        if(usuario!=null){
+                            String User_id = mAuth.getCurrentUser().getUid();
+                            //ingresando los datos del usuario
+                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("nombre").setValue(nombre.getText().toString());
+                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("correo").setValue(correo.getText().toString());
+                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("edad").setValue(edad.getText().toString());
+                            Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+
+
+                            Intent ir = new Intent(getApplicationContext(),Principal.class);
+                            startActivity(ir);
+                        }
+                    }
+                });
             }else{
                     Toast.makeText(getApplicationContext(), "LLene todos los datos por favor", Toast.LENGTH_SHORT).show();
 
