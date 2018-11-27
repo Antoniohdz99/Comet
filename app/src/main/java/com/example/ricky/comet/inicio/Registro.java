@@ -150,7 +150,7 @@ public class Registro extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().signOut();
+
         usuario=myauth.getInstance().getCurrentUser();
 
         //SI EL USUARIO ESTÁ LOGEADO, LO REDIRIJIMOS
