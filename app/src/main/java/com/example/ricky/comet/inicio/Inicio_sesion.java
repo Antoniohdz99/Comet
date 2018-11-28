@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -90,14 +92,18 @@ public class Inicio_sesion extends AppCompatActivity {
         });//CORREO Y CONTRASEÑA
 
         // Initialize Facebook Login button
-
-        loginButton = (LoginButton)findViewById(R.id.login_button);
         mCallbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton = (LoginButton)findViewById(R.id.login_button);
+
+
+
+
+
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                goMainScreen();
+
+                loginButton.setReadPermissions("email", "public_profile");
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -123,20 +129,28 @@ public class Inicio_sesion extends AppCompatActivity {
     }
 
     private void goMainScreen() {
-        Intent intent = new Intent(this, Principal.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+       Intent intent = new Intent(this, Principal.class);
+       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        myauth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+        myauth.signInWithCredential(credential).addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Error", "onFailure: "+e);
+            }
+        })
+                .addOnCompleteListener(Inicio_sesion.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = myauth.getCurrentUser();
+                            goMainScreen();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Inicio_sesion.this, "Authentication failed.",

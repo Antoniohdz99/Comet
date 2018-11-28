@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import com.example.ricky.comet.R;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,6 +33,8 @@ Button
 
         btn_iniciar_S.setOnClickListener(Click_iniciar_s);
         btn_registrar.setOnClickListener(Click_Registrar);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
 
@@ -60,6 +65,14 @@ Button
             startActivity(ir);
         }
 
+
+
+    }
+
+    private void goMainScreen() {
+        Intent intent = new Intent(this, Principal.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 }
