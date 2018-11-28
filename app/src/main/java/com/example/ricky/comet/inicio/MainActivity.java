@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.ricky.comet.Login.Auth_user;
 import com.example.ricky.comet.R;
 
 import com.facebook.AccessToken;
@@ -19,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
 Button
     btn_iniciar_S,
     btn_registrar;
-    FirebaseUser usuario;
-    FirebaseAuth myauth = FirebaseAuth.getInstance();
+
+    Auth_user auth_user;
 
 
     @Override
@@ -28,13 +29,14 @@ Button
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        auth_user = new Auth_user();
+        auth_user.check_user(MainActivity.this);
         btn_iniciar_S = findViewById(R.id.log);
         btn_registrar = findViewById(R.id.reg);
 
         btn_iniciar_S.setOnClickListener(Click_iniciar_s);
         btn_registrar.setOnClickListener(Click_Registrar);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+
     }
 
 
@@ -56,23 +58,18 @@ Button
     @Override
     protected void onStart() {
         super.onStart();
-        /*FirebaseAuth.getInstance().signOut();*/
-        usuario=myauth.getInstance().getCurrentUser();
 
-        //SI EL USUARIO ESTÁ LOGEADO, LO REDIRIJIMOS
-        if(usuario!=null){
-            Intent ir = new Intent(MainActivity.this,Principal.class);
-            startActivity(ir);
-        }
-
+        auth_user.Start();
 
 
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
 
-    private void goMainScreen() {
-        Intent intent = new Intent(this, Principal.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        auth_user.Stop();
+
+
     }
 
 }

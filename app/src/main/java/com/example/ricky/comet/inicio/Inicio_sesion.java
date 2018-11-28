@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ricky.comet.Login.Auth_user;
 import com.example.ricky.comet.Login.Login_Facebook;
+import com.example.ricky.comet.Login.Login_by_Correo;
 import com.example.ricky.comet.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -34,10 +36,9 @@ public class Inicio_sesion extends AppCompatActivity {
 
 
     EditText txtmail, txtpass;
-    FirebaseAuth myauth;
     String correo,contrasena;
     Button btninicia;
-    Intent redirije;
+   Login_by_Correo login_by_correo;
 
 
     //FACEBOOK
@@ -45,58 +46,58 @@ public class Inicio_sesion extends AppCompatActivity {
    Login_Facebook login_facebook;
 
 
+   //Autentificacion
+    Auth_user auth_user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
 
+        //Iniciado la autentificacion
+        auth_user = new Auth_user();
+        //Listener de autentificacion
+        auth_user.check_user(Inicio_sesion.this);
 
+        //Varibles de Autenticacion
+        //Correo
         txtmail=findViewById(R.id.txtmail);
+        //Contraseña
         txtpass=findViewById(R.id.txtpass);
+
+        //Btn Inicio sesión
         btninicia=findViewById(R.id.btninicia);
-        myauth=FirebaseAuth.getInstance();
 
 
 
+        //Iniciando la classe de logion by Facebook
+        login_by_correo = new Login_by_Correo();
+
+
+        //Onclik del boton de registro
         btninicia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 correo=String.valueOf(txtmail.getText());
                 contrasena=String.valueOf(txtpass.getText());
-
-                myauth.signInWithEmailAndPassword(correo,contrasena).addOnCompleteListener(Inicio_sesion.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Inicio_sesion.this, "¡Inició Sesión!", Toast.LENGTH_SHORT).show();
-                        }else if(task.isCanceled()) {
-                            Toast.makeText(Inicio_sesion.this, "¡Error, Verifica tus datos!", Toast.LENGTH_SHORT);
-                        }
+                if (!txtmail.getText().equals(null) &&  !txtpass.getText().equals(null)) {
+                    login_by_correo.signInWithEmailAndPassword(correo, contrasena, Inicio_sesion.this);
+                }else
+                    {
+                        Toast.makeText(getApplicationContext(),"Ingrese todos los datos",Toast.LENGTH_LONG).show();
                     }
 
-                }).addOnSuccessListener(Inicio_sesion.this, new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-
-                        FirebaseUser usuario;
-                        FirebaseAuth autorizacion = FirebaseAuth.getInstance();
-                        usuario=autorizacion.getCurrentUser();
-
-                        if(usuario!=null){
-                            redirije = new Intent(Inicio_sesion.this,Principal.class);
-                            startActivity(redirije);
-                        }
-                    }
-                });
             }
         });//CORREO Y CONTRASEÑA
 
-        // Initialize Facebook Login button
+       //Iniciando la classe de login facebook
         login_facebook = new Login_Facebook();
+        // Initialize Facebook Login button
         loginButton = (LoginButton)findViewById(R.id.login_button);
-
+        //Tomande el login button
         login_facebook.setLoginButton(loginButton);
+        //Activando el registerCallbak
         login_facebook.registerCallback(Inicio_sesion.this);
 
 
@@ -113,6 +114,18 @@ public class Inicio_sesion extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         login_facebook.getmCallbackManager().onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        auth_user.Start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        auth_user.Stop();
     }
 
 
