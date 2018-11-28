@@ -158,8 +158,8 @@ public class Registro extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    reg.setEnabled(false);
-                if (correo.getText().toString() != "" && contra.getText().toString() != "" && edad.getText().toString() != "" && nombre.getText().toString() != "") {
+
+                if (correo.getText().equals(null)   && contra.getText().equals(null) && edad.getText().equals(null)&& nombre.getText().equals(null)) {
 
                 mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contra.getText().toString())
                         .addOnCompleteListener(Registro.this, new OnCompleteListener<AuthResult>() {
@@ -231,7 +231,7 @@ public class Registro extends AppCompatActivity {
                 });
             }else{
                     Toast.makeText(getApplicationContext(), "LLene todos los datos por favor", Toast.LENGTH_SHORT).show();
-                    reg.setEnabled(true);
+
                 }
 
             }
