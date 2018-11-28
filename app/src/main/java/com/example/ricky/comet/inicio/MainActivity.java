@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.ricky.comet.R;
-import com.facebook.AccessToken;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
