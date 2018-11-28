@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.ricky.comet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,10 +34,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -80,7 +87,7 @@ public class Registro extends AppCompatActivity {
 
 
 
-
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
     @Override
@@ -151,7 +158,7 @@ public class Registro extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                    reg.setEnabled(false);
                 if (correo.getText().toString() != "" && contra.getText().toString() != "" && edad.getText().toString() != "" && nombre.getText().toString() != "") {
 
                 mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contra.getText().toString())
@@ -170,7 +177,7 @@ public class Registro extends AppCompatActivity {
                                     //si el usuario no se pudo crear susedeta lo siguiete
                                     Log.w("Error", "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(getApplicationContext(), "fallo al autentificar.", Toast.LENGTH_SHORT).show();
-
+                                    reg.setEnabled(true);
                                 }
 
                                 // ...
@@ -188,16 +195,43 @@ public class Registro extends AppCompatActivity {
                             FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("correo").setValue(correo.getText().toString());
                             FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("edad").setValue(edad.getText().toString());
                             Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                            Foto_ag.setDrawingCacheEnabled(true);
+                            Foto_ag.buildDrawingCache();
+                            Bitmap bitmap = ((BitmapDrawable) Foto_ag.getDrawable()).getBitmap();
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            // Create a storage reference from our app
+                            StorageReference storageRef = storage.getReference();
+
+                            // Create a reference to "mountains.jpg"
+                            StorageReference mountainsRef = storageRef.child("Perfil.jpg");
+
+                            // Create a reference to 'images/mountains.jpg'
+                            StorageReference mountainImagesRef = storageRef.child("Img_usuarios/"+User_id+"/Perfil.jpg");
+                            byte[] data = baos.toByteArray();
+                            UploadTask uploadTask = mountainImagesRef .putBytes(data);
+                            uploadTask.addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle unsuccessful uploads
+                                    reg.setEnabled(true);
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Intent ir = new Intent(getApplicationContext(),Principal.class);
+                                    startActivity(ir);
+                                }
+                            });
 
 
-                            Intent ir = new Intent(getApplicationContext(),Principal.class);
-                            startActivity(ir);
+
                         }
                     }
                 });
             }else{
                     Toast.makeText(getApplicationContext(), "LLene todos los datos por favor", Toast.LENGTH_SHORT).show();
-
+                    reg.setEnabled(true);
                 }
 
             }
@@ -252,10 +286,10 @@ public class Registro extends AppCompatActivity {
             Path = Environment.getExternalStorageDirectory()+File.separator+Directorio_imagen+File.separator+nombre;
             FileImage = new File(Path);
             Intent  Imagen = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            Imagen.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(FileImage));
-
-            startActivityForResult(Imagen,20);
-
+            Imagen.putExtra(MediaStore.EXTRA_OUTPUT,FileImage.toURI());
+            if (Imagen.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(Imagen, 20);
+            }
         }
 
     }
@@ -275,17 +309,14 @@ public class Registro extends AppCompatActivity {
             }break;
             case 20: {
 
-                    MediaScannerConnection.scanFile(Registro.this,new String[]{Path},null,
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                        @Override
-                        public void onScanCompleted(String s, Uri uri) {
-                            Log.d("Phat",""+Path);
 
+                    if ( resultCode == RESULT_OK){
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    Foto_ag.setImageBitmap(imageBitmap);
                         }
-                    }
-                    );
-                    bitmap= BitmapFactory.decodeFile(Path);
-                    Foto_ag.setImageBitmap(bitmap);
+
+
 
 
             }break;
