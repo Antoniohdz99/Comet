@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ricky.comet.R;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -20,7 +21,9 @@ import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,8 +37,9 @@ public class Inicio_sesion extends AppCompatActivity {
     Intent redirije;
 
 
+    //FACEBOOK
     LoginButton loginButton;
-    CallbackManager mCallbackManager;
+    private CallbackManager mCallbackManager;
 
 
     @Override
@@ -43,36 +47,12 @@ public class Inicio_sesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
 
         txtmail=findViewById(R.id.txtmail);
         txtpass=findViewById(R.id.txtpass);
         btninicia=findViewById(R.id.btninicia);
-        loginButton = findViewById(R.id.login_button);
-        mCallbackManager = CallbackManager.Factory.create();
         myauth=FirebaseAuth.getInstance();
 
-        // Initialize Facebook Login button
-
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Intent ir = new Intent(Inicio_sesion.this,Principal.class);
-                startActivity(ir);
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(Inicio_sesion.this,"¡Cancelado!", Toast.LENGTH_SHORT);
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(Inicio_sesion.this,"¡Error al Iniciar Sesión!", Toast.LENGTH_SHORT);
-            }
-        });
 
 
         btninicia.setOnClickListener(new View.OnClickListener() {
@@ -104,24 +84,68 @@ public class Inicio_sesion extends AppCompatActivity {
                             redirije = new Intent(Inicio_sesion.this,Principal.class);
                             startActivity(redirije);
                         }
-
-
                     }
                 });
+            }
+        });//CORREO Y CONTRASEÑA
 
+        // Initialize Facebook Login button
 
+        loginButton = (LoginButton)findViewById(R.id.login_button);
+        mCallbackManager = CallbackManager.Factory.create();
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                goMainScreen();
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(Inicio_sesion.this,"¡Cancelado!", Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(Inicio_sesion.this,"¡Error al Iniciar Sesión!", Toast.LENGTH_SHORT);
             }
         });
 
 
-    }/*fin oncreate*/
-
+    }//ON CREATE
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void goMainScreen() {
+        Intent intent = new Intent(this, Principal.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        myauth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = myauth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(Inicio_sesion.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
     }
 
 }

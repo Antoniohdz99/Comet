@@ -8,11 +8,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ricky.comet.R;
+import com.facebook.AccessToken;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Principal extends AppCompatActivity {
 
     Button btncierra;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +32,20 @@ public class Principal extends AppCompatActivity {
                 startActivity(ir);
             }
         });
+
+        if (AccessToken.getCurrentAccessToken() == null) {
+            goLoginScreen();
+        }
+
+// Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
     }
+
+    private void goLoginScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 }
