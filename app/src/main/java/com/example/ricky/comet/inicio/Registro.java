@@ -5,10 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ricky.comet.R;
+import com.example.ricky.comet.Utencilios.Dialog_Perzonalisado;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,19 +30,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Calendar;
-import java.util.HashMap;
 
 public class Registro extends AppCompatActivity {
 
@@ -159,8 +152,9 @@ public class Registro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (correo.getText().equals(null)   && contra.getText().equals(null) && edad.getText().equals(null)&& nombre.getText().equals(null)) {
-
+                if (!correo.getText().toString().isEmpty()   && !contra.getText().toString().isEmpty()  && !edad.getText().toString().isEmpty()  && !nombre.getText().toString().isEmpty() ) {
+                    final Dialog_Perzonalisado barra_carga= new Dialog_Perzonalisado(Registro.this,R.layout.progres_bar);
+                    barra_carga.mostrar();
                 mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contra.getText().toString())
                         .addOnCompleteListener(Registro.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -175,6 +169,7 @@ public class Registro extends AppCompatActivity {
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     //si el usuario no se pudo crear susedeta lo siguiete
+                                    barra_carga.ocultar();
                                     Log.w("Error", "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(getApplicationContext(), "fallo al autentificar.", Toast.LENGTH_SHORT).show();
                                     reg.setEnabled(true);
@@ -191,10 +186,11 @@ public class Registro extends AppCompatActivity {
                         if(usuario!=null){
                             String User_id = mAuth.getCurrentUser().getUid();
                             //ingresando los datos del usuario
-                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("nombre").setValue(nombre.getText().toString());
-                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("correo").setValue(correo.getText().toString());
-                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child(User_id).child("edad").setValue(edad.getText().toString());
-                            Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child("Clientes").child(User_id).child("nombre").setValue(nombre.getText().toString());
+                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child("Clientes").child(User_id).child("correo").setValue(correo.getText().toString());
+                            FirebaseDatabase.getInstance().getReference().child("Usuarios").child("Clientes").child(User_id).child("edad").setValue(edad.getText().toString());
+
+
                             Foto_ag.setDrawingCacheEnabled(true);
                             Foto_ag.buildDrawingCache();
                             Bitmap bitmap = ((BitmapDrawable) Foto_ag.getDrawable()).getBitmap();
@@ -219,8 +215,11 @@ public class Registro extends AppCompatActivity {
                             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    barra_carga.ocultar();
                                     Intent ir = new Intent(getApplicationContext(),Principal.class);
                                     startActivity(ir);
+                                    Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -230,7 +229,9 @@ public class Registro extends AppCompatActivity {
                     }
                 });
             }else{
+
                     Toast.makeText(getApplicationContext(), "LLene todos los datos por favor", Toast.LENGTH_SHORT).show();
+
 
                 }
 
@@ -324,6 +325,16 @@ public class Registro extends AppCompatActivity {
 
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void onStart() {

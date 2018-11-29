@@ -12,5 +12,7 @@
     <color name="Pistache">#6fc5b8</color>
     <color name="MoradoPrimario">#3d3242</color>
     <color name="RojoPrimario">#ca4f47</color>
+    <color name="Naranja_intenso">#ff8000</color>
+    <color name="Azul_intenso">#007fff</color>
 
 </resources>
