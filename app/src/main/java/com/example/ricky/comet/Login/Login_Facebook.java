@@ -49,10 +49,10 @@ public class Login_Facebook {
 
     public void registerCallback(final Context context)
     {
+        loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                loginButton.setReadPermissions("email", "public_profile");
                 handleFacebookAccessToken(loginResult.getAccessToken(),context);
             }
 
@@ -64,6 +64,7 @@ public class Login_Facebook {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(context,"¡Error al Iniciar Sesión!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,error.toString(),Toast.LENGTH_SHORT).show();
             }
         });
 

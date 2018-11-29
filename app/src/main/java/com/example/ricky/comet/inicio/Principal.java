@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.ricky.comet.R;
 import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +28,6 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-
                 Toast.makeText(Principal.this,"¡Cerrando Sesión!",Toast.LENGTH_SHORT).show();
                 Intent ir = new Intent(Principal.this,MainActivity.class);
                 startActivity(ir);

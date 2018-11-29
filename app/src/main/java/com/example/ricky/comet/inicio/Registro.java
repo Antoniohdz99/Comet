@@ -235,7 +235,6 @@ public class Registro extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "LLene todos los datos por favor", Toast.LENGTH_SHORT).show();
 
-
                 }
 
             }
