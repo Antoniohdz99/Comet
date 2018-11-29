@@ -152,7 +152,7 @@ public class Registro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!correo.getText().toString().isEmpty()   && !contra.getText().toString().isEmpty()  && !edad.getText().toString().isEmpty()  && !nombre.getText().toString().isEmpty() ) {
+                if (correo.getText().length() >0   && contra.getText().toString().length()>0  && edad.getText().toString().length()>0  && nombre.getText().toString().length()>0 ) {
                     final Dialog_Perzonalisado barra_carga= new Dialog_Perzonalisado(Registro.this,R.layout.progres_bar);
                     barra_carga.no_celable();
                     barra_carga.activar();
