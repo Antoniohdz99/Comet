@@ -30,7 +30,7 @@ Button
         setContentView(R.layout.activity_main);
 
         auth_user = new Auth_user();
-        auth_user.check_user(MainActivity.this);
+        auth_user.check_user(MainActivity.this );
         btn_iniciar_S = findViewById(R.id.log);
         btn_registrar = findViewById(R.id.reg);
 
