@@ -52,7 +52,6 @@ public class Login_Facebook {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
                 loginButton.setReadPermissions("email", "public_profile");
                 handleFacebookAccessToken(loginResult.getAccessToken(),context);
             }
@@ -70,9 +69,6 @@ public class Login_Facebook {
 
     }
 
-
-
-
     private void handleFacebookAccessToken(AccessToken token, final Context context) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
@@ -81,15 +77,12 @@ public class Login_Facebook {
             public void onFailure(@NonNull Exception e) {
                 Log.d("Error", "onFailure: "+e);
             }
-        })
-                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+        }).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = myauth.getCurrentUser();
-
-
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -97,10 +90,8 @@ public class Login_Facebook {
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
                     }
                 });
-
     }
 
 

@@ -100,13 +100,6 @@ public class Inicio_sesion extends AppCompatActivity {
         //Activando el registerCallbak
         login_facebook.registerCallback(Inicio_sesion.this);
 
-
-
-
-
-
-
-
     }//ON CREATE
 
 
