@@ -37,9 +37,7 @@ Button
 
         btn_iniciar_S.setOnClickListener(Click_iniciar_s);
         btn_registrar.setOnClickListener(Click_Registrar);
-        Dialog_Perzonalisado dialog_perzonalisado = new Dialog_Perzonalisado(MainActivity.this,R.layout.progres_bar);
-        dialog_perzonalisado.activar();
-        dialog_perzonalisado.mostrar();
+
 
     }
 
