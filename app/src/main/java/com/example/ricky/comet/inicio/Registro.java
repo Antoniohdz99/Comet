@@ -154,7 +154,10 @@ public class Registro extends AppCompatActivity {
 
                 if (!correo.getText().toString().isEmpty()   && !contra.getText().toString().isEmpty()  && !edad.getText().toString().isEmpty()  && !nombre.getText().toString().isEmpty() ) {
                     final Dialog_Perzonalisado barra_carga= new Dialog_Perzonalisado(Registro.this,R.layout.progres_bar);
+                    barra_carga.no_celable();
+                    barra_carga.activar();
                     barra_carga.mostrar();
+
                 mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contra.getText().toString())
                         .addOnCompleteListener(Registro.this, new OnCompleteListener<AuthResult>() {
                             @Override

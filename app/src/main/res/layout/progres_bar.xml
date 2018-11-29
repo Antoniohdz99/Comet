@@ -4,11 +4,11 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="150dp"
         android:indeterminate="false"
-        android:progressTint="@color/Naranja_intenso"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleHorizontal"
         android:visibility="visible"
-        android:layout_marginBottom="20dp"/>
+        android:progressDrawable="@drawable/prg_per"/>
 </android.support.constraint.ConstraintLayout>

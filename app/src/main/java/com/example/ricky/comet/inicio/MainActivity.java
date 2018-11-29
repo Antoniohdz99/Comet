@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.example.ricky.comet.Login.Auth_user;
 import com.example.ricky.comet.R;
 
+import com.example.ricky.comet.Utencilios.Dialog_Perzonalisado;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -36,6 +37,9 @@ Button
 
         btn_iniciar_S.setOnClickListener(Click_iniciar_s);
         btn_registrar.setOnClickListener(Click_Registrar);
+        Dialog_Perzonalisado dialog_perzonalisado = new Dialog_Perzonalisado(MainActivity.this,R.layout.progres_bar);
+        dialog_perzonalisado.activar();
+        dialog_perzonalisado.mostrar();
 
     }
 

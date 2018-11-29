@@ -10,19 +10,24 @@ import com.example.ricky.comet.inicio.Registro;
 public class Dialog_Perzonalisado {
 
    private AlertDialog alerta;
-
+    AlertDialog.Builder builder;
     public Dialog_Perzonalisado(Context context, int v) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+         builder= new AlertDialog.Builder(context);
 
 
 
         builder.setTitle("Cargando");
-        builder.setCancelable(false);
-        builder.setView(v);
-         this.alerta =builder.create();
-    }
 
+        builder.setView(v);
+
+    }
+    public void no_celable() {
+        builder.setCancelable(false);
+    }
+    public void activar() {
+        this.alerta =builder.create();
+    }
 
     public void mostrar() {
         alerta.show();
