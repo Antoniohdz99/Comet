@@ -35,6 +35,7 @@ public class Login_Facebook {
         myauth=FirebaseAuth.getInstance();
         mCallbackManager =  CallbackManager.Factory.create();
 
+
     }
 
     public CallbackManager getmCallbackManager()
@@ -49,10 +50,11 @@ public class Login_Facebook {
 
     public void registerCallback(final Context context)
     {
-        loginButton.setReadPermissions("email", "public_profile");
+
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                loginButton.setReadPermissions("email", "public_profile");
                 handleFacebookAccessToken(loginResult.getAccessToken(),context);
             }
 

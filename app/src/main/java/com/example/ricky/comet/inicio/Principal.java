@@ -23,17 +23,19 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        Button btncierra = findViewById(R.id.btncierra);
+        if (!btncierra.equals(null)) {
 
         findViewById(R.id.btncierra).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(Principal.this,"¡Cerrando Sesión!",Toast.LENGTH_SHORT).show();
-                Intent ir = new Intent(Principal.this,MainActivity.class);
+                Toast.makeText(Principal.this, "¡Cerrando Sesión!", Toast.LENGTH_SHORT).show();
+                Intent ir = new Intent(Principal.this, MainActivity.class);
                 startActivity(ir);
             }
         });
-
+    }
         if (AccessToken.getCurrentAccessToken() == null) {
             goLoginScreen();
         }
@@ -44,9 +46,9 @@ public class Principal extends AppCompatActivity {
     }
 
     private void goLoginScreen() {
-        Intent intent = new Intent(Principal.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+      //  Intent intent = new Intent(Principal.this, MainActivity.class);
+      //  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+       // startActivity(intent);
     }
 
 }

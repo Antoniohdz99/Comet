@@ -61,6 +61,9 @@ public class Inicio_sesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
 
+
+
+
         //Iniciado la autentificacion
         auth_user = new Auth_user();
         //Listener de autentificacion
@@ -107,20 +110,6 @@ public class Inicio_sesion extends AppCompatActivity {
         //Activando el registerCallbak
         login_facebook.registerCallback(Inicio_sesion.this);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.packagename",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
 
     }//ON CREATE
 

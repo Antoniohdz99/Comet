@@ -220,7 +220,7 @@ public class Registro extends AppCompatActivity {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                                     barra_carga.ocultar();
-                                    Intent ir = new Intent(getApplicationContext(),Principal.class);
+                                    Intent ir = new Intent(getApplicationContext(),MainActivity.class);
                                     startActivity(ir);
                                     Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
                                 }
