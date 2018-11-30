@@ -260,6 +260,7 @@ public class Registro extends AppCompatActivity {
                     case "Elegir de la galeria":{
                         Intent  Imagen = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         Imagen.setType("image/");
+
                         startActivityForResult(Imagen.createChooser(Imagen,"Selecione"),10);
 
                     }break;
