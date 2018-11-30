@@ -34,7 +34,7 @@ public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comid
 
     @Override
     public int getItemCount() {
-        return 0;
+        return  ListData.size();
     }
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
@@ -47,5 +47,7 @@ public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comid
             textView = itemView.findViewById(R.id.Item_comida_texto);
             imageView = itemView.findViewById(R.id.Itme_comida_imagen);
         }
+
+
     }
 }

@@ -40,7 +40,7 @@ public class Principal extends AppCompatActivity {
 
 
 
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, pedidos).commit();
 
 
 
@@ -54,12 +54,15 @@ public class Principal extends AppCompatActivity {
                 {
                     case R.id.Perfil:
                         getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, perfil).commit();
+
                         break;
                     case R.id.Pedidos:
                         getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, pedidos).commit();
+
                         break;
                     case R.id.Noticias:
                         getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, noticias).commit();
+
                         break;
                 }
 

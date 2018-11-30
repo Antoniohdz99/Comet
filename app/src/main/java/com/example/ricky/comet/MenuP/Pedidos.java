@@ -31,9 +31,11 @@ public class Pedidos extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_pedidos, container, false);
+
+
         recyclerView= view.findViewById(R.id.RcID);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        ArrayList<TiposComida> ListData = new ArrayList<TiposComida>();
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
+        ArrayList<TiposComida> ListData = new ArrayList<>();
         ListData.add(new TiposComida("Comida Mexicana",R.drawable.comida_mex));
         ListData.add(new TiposComida("Antojitos Mexicana",R.drawable.antojito_mex));
         ListData.add(new TiposComida("Comida China",R.drawable.comida_china));

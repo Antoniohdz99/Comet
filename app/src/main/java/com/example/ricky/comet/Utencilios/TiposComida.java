@@ -2,8 +2,8 @@ package com.example.ricky.comet.Utencilios;
 
 public class TiposComida {
 
-    String Nombre_tipo ="";
-    int Imagen =0;
+    String Nombre_tipo ;
+    int Imagen ;
 
     public TiposComida(String nombre_tipo, int imagen) {
         Nombre_tipo = nombre_tipo;
