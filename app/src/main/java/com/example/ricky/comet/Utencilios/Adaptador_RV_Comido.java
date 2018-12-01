@@ -24,6 +24,7 @@ public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comid
     @Override
     public Adaptador_RV_Comido.ViewHolderDatos onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tipo_comida,null,false);
+        view.setOnClickListener(this);
         return new ViewHolderDatos(view);
     }
 
@@ -38,10 +39,16 @@ public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comid
     public int getItemCount() {
         return  ListData.size();
     }
-
+    public void setOnClickListener(View.OnClickListener listener1)
+    {
+        this.listener = listener1;
+    }
     @Override
     public void onClick(View v) {
-
+        if (listener != null)
+        {
+                listener.onClick(v);
+        }
     }
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {

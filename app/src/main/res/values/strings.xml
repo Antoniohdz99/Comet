@@ -13,4 +13,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="facebook_app_id">358579248041821</string>
     <string name="fb_login_protocol_scheme">fb358579248041821</string>
+    <string name="ingresa_email_o_tel_fono">Ingresa Email o Teléfono</string>
+    <string name="ingresa_contrase_a">Ingresa contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="ingresar_con">Ingresar con...</string>
 </resources>

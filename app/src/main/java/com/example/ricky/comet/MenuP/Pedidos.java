@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.ricky.comet.R;
 import com.example.ricky.comet.Utencilios.Adaptador_RV_Comido;
@@ -30,17 +31,23 @@ public class Pedidos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_pedidos, container, false);
+        final View view= inflater.inflate(R.layout.fragment_pedidos, container, false);
 
 
         recyclerView= view.findViewById(R.id.RcID);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
-        ArrayList<TiposComida> ListData = new ArrayList<>();
+        final ArrayList<TiposComida> ListData = new ArrayList<>();
         ListData.add(new TiposComida("Comida Mexicana",R.drawable.comida_mex));
         ListData.add(new TiposComida("Antojitos Mexicana",R.drawable.antojito_mex));
         ListData.add(new TiposComida("Comida China",R.drawable.comida_china));
         ListData.add(new TiposComida("Comida Taylandesa",R.drawable.comida_taylandesa));
         Adaptador_RV_Comido adapterDatos = new Adaptador_RV_Comido(ListData);
+        adapterDatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(view.getContext(),"Nombre: " +ListData.get(recyclerView.getChildAdapterPosition(v)).getNombre_tipo(),Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView.setAdapter(adapterDatos);
 
 
