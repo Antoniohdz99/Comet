@@ -11,9 +11,11 @@ import com.example.ricky.comet.R;
 
 import java.util.ArrayList;
 
-public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comido.ViewHolderDatos>  {
+public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comido.ViewHolderDatos>
+        implements View.OnClickListener{
 
     ArrayList<TiposComida> ListData;
+    private View.OnClickListener listener;
 
     public Adaptador_RV_Comido(ArrayList<TiposComida> listData) {
         ListData = listData;
@@ -35,6 +37,11 @@ public class Adaptador_RV_Comido extends RecyclerView.Adapter<Adaptador_RV_Comid
     @Override
     public int getItemCount() {
         return  ListData.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {

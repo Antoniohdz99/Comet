@@ -50,23 +50,26 @@ public class Principal extends AppCompatActivity {
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.Perfil:
+                switch (item.getItemId()) {
+                    case R.id.Perfil: {
                         getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, perfil).commit();
-
-                        break;
-                    case R.id.Pedidos:
+                        return true;
+                    }
+                    case R.id.Pedidos:{
                         getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, pedidos).commit();
-
-                        break;
-                    case R.id.Noticias:
+                        return true;
+                }
+                    case R.id.Noticias: {
                         getSupportFragmentManager().beginTransaction().replace(R.id.Fragmento, noticias).commit();
+                        return true;
+                    }
 
-                        break;
+                        default: {
+                            return false;
+                        }
                 }
 
-                return false;
+
             }
         });
 
