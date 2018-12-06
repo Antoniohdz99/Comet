@@ -34,6 +34,16 @@ public class Perfil extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_perfil, container, false);
 
 
+
+
+
+
+
+
+
+
+
+
         Button btncierra = view.findViewById(R.id.btncierra);
 
         btncierra.setOnClickListener(new View.OnClickListener() {

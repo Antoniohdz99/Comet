@@ -37,12 +37,14 @@ public class Noticias extends Fragment {
 
         recyclerView= view.findViewById(R.id.Rc_news);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
+
         final ArrayList<Comentario_item> ListData = new ArrayList<>();
 
        ListData.add(new Comentario_item("Los farolitos",R.drawable.antojito_mex,R.drawable.p1));
      ListData.add(new Comentario_item("Antojitos Mexicanos",R.drawable.ic_news,R.drawable.p2));
         ListData.add(new Comentario_item("Encanto Comida",R.drawable.ic_perfil,R.drawable.p3));
         Adaptador_news adapterDatos = new Adaptador_news(ListData);
+
         adapterDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

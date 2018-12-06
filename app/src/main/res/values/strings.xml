@@ -19,4 +19,8 @@
     <string name="ingresar_con">Ingresar con...</string>
     <string name="nombre_persona">Nombre Persona</string>
     <string name="nombre_Res">Nombre Restaurante</string>
+    <string name="nombre_correo">Correo_persona</string>
+    <string name="nombre_cliente">Cliente</string>
+    <string name="Conf">Configuración</string>
+    <string name="Puevatexto">Prueva de textp</string>
 </resources>
