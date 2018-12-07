@@ -26,6 +26,12 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,7 +45,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Inicio_sesion extends AppCompatActivity {
+public class Inicio_sesion extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
     EditText txtmail, txtpass;
@@ -56,12 +62,17 @@ public class Inicio_sesion extends AppCompatActivity {
    //Autentificacion
     Auth_user auth_user;
 
+
+    //GOOGLE Api Client
+    GoogleApiClient googleApiClient;
+    private SignInButton signgoogle;
+    public static final int codigo_inicio=15;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
-
-
 
 
         //Iniciado la autentificacion
@@ -77,7 +88,6 @@ public class Inicio_sesion extends AppCompatActivity {
 
         //Btn Inicio sesión
         btninicia=findViewById(R.id.btninicia);
-
 
 
         //Iniciando la classe de logion by Facebook
@@ -111,13 +121,64 @@ public class Inicio_sesion extends AppCompatActivity {
         login_facebook.registerCallback(Inicio_sesion.this);
 
 
-    }//ON CREATE
 
+
+        //LOGIN GOOGLE
+
+        //GOOGLE SIGN OPTIONS
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        //EL GOOGLE API CLIENTE ES EL INTERMEDIARIO ENTRE LAS APPS Y LAS APPS DE GOOGLE
+        //CREAR EL API, ERRORES,AÑADIR API PARA INICIO DE SESIÓN
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this )
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
+        signgoogle = findViewById(R.id.signgoogle);
+        signgoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,codigo_inicio);
+            }
+        });
+
+    }//FIN ON CREATE
+
+
+    //ERROR EN CONEXIÓN A GUGUL
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         login_facebook.getmCallbackManager().onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==codigo_inicio){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignResult(result);
+        }
+    }
+
+    //RESULTADO
+    private void handleSignResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            goMainScreen();
+        }else{
+            Toast.makeText(this,"No se pudo iniciar sesión", Toast.LENGTH_SHORT);
+        }
+    }
+
+    private void goMainScreen() {
+        Intent ir = new Intent(Inicio_sesion.this,Principal.class);
+        ir.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(ir);
     }
 
     @Override
@@ -131,8 +192,5 @@ public class Inicio_sesion extends AppCompatActivity {
         super.onStop();
         auth_user.Stop();
     }
-
-
-
 
 }
