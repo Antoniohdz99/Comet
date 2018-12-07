@@ -23,4 +23,5 @@
     <string name="nombre_cliente">Cliente</string>
     <string name="Conf">Configuración</string>
     <string name="Puevatexto">Prueva de textp</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

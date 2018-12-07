@@ -17,7 +17,7 @@ public class Dialog_Perzonalisado {
 
 
 
-        builder.setTitle("Cargando");
+        builder.setTitle("Cargando....");
 
         builder.setView(v);
 
