@@ -25,6 +25,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -103,10 +104,11 @@ public class Principal extends AppCompatActivity implements OnMapReadyCallback {
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
 
-        map.addMarker(new MarkerOptions()
+        Marker melbourne = map.addMarker(new MarkerOptions()
                 .title("Sydney")
-                .snippet("The most populous city in Australia.")
+                .snippet("hola bebe")
                 .position(sydney));
+        melbourne.showInfoWindow();
     }
 
 }
